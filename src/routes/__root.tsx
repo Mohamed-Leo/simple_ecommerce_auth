@@ -1,6 +1,5 @@
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-
-import NavBar from "@/components/layout/NavBar";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -9,10 +8,8 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <header className="container mx-auto py-6">
-        <NavBar />
-      </header>
       <Outlet />
+      <TanStackRouterDevtools position="bottom-right" />
     </>
   );
 }

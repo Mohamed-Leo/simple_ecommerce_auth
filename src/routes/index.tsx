@@ -1,9 +1,0 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/")({
-  component: HomeComponent,
-});
-
-function HomeComponent() {
-  return <div className="container mx-auto">Hello Home {"->"} "/"!</div>;
-}

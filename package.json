@@ -8,6 +8,7 @@
     "server": "tsx server/index.ts",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "seed": "tsx db/seed.ts",
     "preview": "vite preview"
   },
   "dependencies": {

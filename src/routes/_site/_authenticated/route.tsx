@@ -2,7 +2,7 @@ import { authClient } from "@/lib/auth-client";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import RouteError from "@/components/global/RouteError";
 
-export const Route = createFileRoute("/_authenticated")({
+export const Route = createFileRoute("/_site/_authenticated")({
   component: RouteComponent,
   beforeLoad: async ({ location }) => {
     const session = await authClient.getSession();

@@ -9,180 +9,286 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProductsIndexRouteImport } from './routes/products/index'
-import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
-import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
+import { Route as SiteRouteRouteImport } from './routes/_site/route'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as AdminProductsRouteImport } from './routes/admin/products'
+import { Route as SiteProductsRouteImport } from './routes/_site/products'
+import { Route as SiteAuthenticatedRouteRouteImport } from './routes/_site/_authenticated/route'
+import { Route as SiteauthSignupRouteImport } from './routes/_site/(auth)/signup'
+import { Route as SiteauthLoginRouteImport } from './routes/_site/(auth)/login'
+import { Route as SiteAuthenticatedProfileIndexRouteImport } from './routes/_site/_authenticated/profile/index'
+import { Route as SiteAuthenticatedDashboardIndexRouteImport } from './routes/_site/_authenticated/dashboard/index'
 
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const SiteRouteRoute = SiteRouteRouteImport.update({
+  id: '/_site',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AdminRouteRoute,
 } as any)
-const ProductsIndexRoute = ProductsIndexRouteImport.update({
-  id: '/products/',
-  path: '/products/',
-  getParentRoute: () => rootRouteImport,
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteRouteRoute,
 } as any)
-const AuthenticatedProfileIndexRoute =
-  AuthenticatedProfileIndexRouteImport.update({
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const SiteProductsRoute = SiteProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => SiteRouteRoute,
+} as any)
+const SiteAuthenticatedRouteRoute = SiteAuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => SiteRouteRoute,
+} as any)
+const SiteauthSignupRoute = SiteauthSignupRouteImport.update({
+  id: '/(auth)/signup',
+  path: '/signup',
+  getParentRoute: () => SiteRouteRoute,
+} as any)
+const SiteauthLoginRoute = SiteauthLoginRouteImport.update({
+  id: '/(auth)/login',
+  path: '/login',
+  getParentRoute: () => SiteRouteRoute,
+} as any)
+const SiteAuthenticatedProfileIndexRoute =
+  SiteAuthenticatedProfileIndexRouteImport.update({
     id: '/profile/',
     path: '/profile/',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    getParentRoute: () => SiteAuthenticatedRouteRoute,
   } as any)
-const AuthenticatedDashboardIndexRoute =
-  AuthenticatedDashboardIndexRouteImport.update({
+const SiteAuthenticatedDashboardIndexRoute =
+  SiteAuthenticatedDashboardIndexRouteImport.update({
     id: '/dashboard/',
     path: '/dashboard/',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    getParentRoute: () => SiteAuthenticatedRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
-  '/products': typeof ProductsIndexRoute
-  '/dashboard': typeof AuthenticatedDashboardIndexRoute
-  '/profile': typeof AuthenticatedProfileIndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/products': typeof SiteProductsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/': typeof SiteIndexRoute
+  '/admin/': typeof AdminIndexRoute
+  '/login': typeof SiteauthLoginRoute
+  '/signup': typeof SiteauthSignupRoute
+  '/dashboard': typeof SiteAuthenticatedDashboardIndexRoute
+  '/profile': typeof SiteAuthenticatedProfileIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
-  '/products': typeof ProductsIndexRoute
-  '/dashboard': typeof AuthenticatedDashboardIndexRoute
-  '/profile': typeof AuthenticatedProfileIndexRoute
+  '/products': typeof SiteProductsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/': typeof SiteIndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/login': typeof SiteauthLoginRoute
+  '/signup': typeof SiteauthSignupRoute
+  '/dashboard': typeof SiteAuthenticatedDashboardIndexRoute
+  '/profile': typeof SiteAuthenticatedProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
-  '/products/': typeof ProductsIndexRoute
-  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
-  '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
+  '/_site': typeof SiteRouteRouteWithChildren
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/_site/_authenticated': typeof SiteAuthenticatedRouteRouteWithChildren
+  '/_site/products': typeof SiteProductsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/_site/': typeof SiteIndexRoute
+  '/admin/': typeof AdminIndexRoute
+  '/_site/(auth)/login': typeof SiteauthLoginRoute
+  '/_site/(auth)/signup': typeof SiteauthSignupRoute
+  '/_site/_authenticated/dashboard/': typeof SiteAuthenticatedDashboardIndexRoute
+  '/_site/_authenticated/profile/': typeof SiteAuthenticatedProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/admin'
+    | '/products'
+    | '/admin/products'
     | '/'
+    | '/admin/'
     | '/login'
     | '/signup'
-    | '/products'
     | '/dashboard'
     | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/products' | '/dashboard' | '/profile'
-  id:
-    | '__root__'
+  to:
+    | '/products'
+    | '/admin/products'
     | '/'
-    | '/_authenticated'
+    | '/admin'
     | '/login'
     | '/signup'
-    | '/products/'
-    | '/_authenticated/dashboard/'
-    | '/_authenticated/profile/'
+    | '/dashboard'
+    | '/profile'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/admin'
+    | '/_site/_authenticated'
+    | '/_site/products'
+    | '/admin/products'
+    | '/_site/'
+    | '/admin/'
+    | '/_site/(auth)/login'
+    | '/_site/(auth)/signup'
+    | '/_site/_authenticated/dashboard/'
+    | '/_site/_authenticated/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  SignupRoute: typeof SignupRoute
-  ProductsIndexRoute: typeof ProductsIndexRoute
+  SiteRouteRoute: typeof SiteRouteRouteWithChildren
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
+    '/_site': {
+      id: '/_site'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      preLoaderRoute: typeof SiteRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_site/': {
+      id: '/_site/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRouteRoute
     }
-    '/products/': {
-      id: '/products/'
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_site/products': {
+      id: '/_site/products'
       path: '/products'
       fullPath: '/products'
-      preLoaderRoute: typeof ProductsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof SiteProductsRouteImport
+      parentRoute: typeof SiteRouteRoute
     }
-    '/_authenticated/profile/': {
-      id: '/_authenticated/profile/'
+    '/_site/_authenticated': {
+      id: '/_site/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof SiteAuthenticatedRouteRouteImport
+      parentRoute: typeof SiteRouteRoute
+    }
+    '/_site/(auth)/signup': {
+      id: '/_site/(auth)/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SiteauthSignupRouteImport
+      parentRoute: typeof SiteRouteRoute
+    }
+    '/_site/(auth)/login': {
+      id: '/_site/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof SiteauthLoginRouteImport
+      parentRoute: typeof SiteRouteRoute
+    }
+    '/_site/_authenticated/profile/': {
+      id: '/_site/_authenticated/profile/'
       path: '/profile'
       fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      preLoaderRoute: typeof SiteAuthenticatedProfileIndexRouteImport
+      parentRoute: typeof SiteAuthenticatedRouteRoute
     }
-    '/_authenticated/dashboard/': {
-      id: '/_authenticated/dashboard/'
+    '/_site/_authenticated/dashboard/': {
+      id: '/_site/_authenticated/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      preLoaderRoute: typeof SiteAuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof SiteAuthenticatedRouteRoute
     }
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
-  AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
+interface SiteAuthenticatedRouteRouteChildren {
+  SiteAuthenticatedDashboardIndexRoute: typeof SiteAuthenticatedDashboardIndexRoute
+  SiteAuthenticatedProfileIndexRoute: typeof SiteAuthenticatedProfileIndexRoute
 }
 
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
-  AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
+const SiteAuthenticatedRouteRouteChildren: SiteAuthenticatedRouteRouteChildren =
+  {
+    SiteAuthenticatedDashboardIndexRoute: SiteAuthenticatedDashboardIndexRoute,
+    SiteAuthenticatedProfileIndexRoute: SiteAuthenticatedProfileIndexRoute,
+  }
+
+const SiteAuthenticatedRouteRouteWithChildren =
+  SiteAuthenticatedRouteRoute._addFileChildren(
+    SiteAuthenticatedRouteRouteChildren,
+  )
+
+interface SiteRouteRouteChildren {
+  SiteAuthenticatedRouteRoute: typeof SiteAuthenticatedRouteRouteWithChildren
+  SiteProductsRoute: typeof SiteProductsRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+  SiteauthLoginRoute: typeof SiteauthLoginRoute
+  SiteauthSignupRoute: typeof SiteauthSignupRoute
 }
 
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+const SiteRouteRouteChildren: SiteRouteRouteChildren = {
+  SiteAuthenticatedRouteRoute: SiteAuthenticatedRouteRouteWithChildren,
+  SiteProductsRoute: SiteProductsRoute,
+  SiteIndexRoute: SiteIndexRoute,
+  SiteauthLoginRoute: SiteauthLoginRoute,
+  SiteauthSignupRoute: SiteauthSignupRoute,
+}
+
+const SiteRouteRouteWithChildren = SiteRouteRoute._addFileChildren(
+  SiteRouteRouteChildren,
+)
+
+interface AdminRouteRouteChildren {
+  AdminProductsRoute: typeof AdminProductsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminProductsRoute: AdminProductsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  LoginRoute: LoginRoute,
-  SignupRoute: SignupRoute,
-  ProductsIndexRoute: ProductsIndexRoute,
+  SiteRouteRoute: SiteRouteRouteWithChildren,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

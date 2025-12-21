@@ -15,12 +15,13 @@ import { Label } from "@/components/ui/label";
 import { LogOut, Mail, User } from "lucide-react";
 import { handleSignOut } from "@/utils/handleSignOut";
 
-export const Route = createFileRoute("/_authenticated/profile/")({
+export const Route = createFileRoute("/_site/_authenticated/profile/")({
   component: ProfileComponent,
 });
 
 function ProfileComponent() {
   const { data: session } = authClient.useSession();
+  console.log(session);
 
   return (
     <div className="container mx-auto flex min-h-[calc(100vh-100px)] items-center justify-center p-4">
