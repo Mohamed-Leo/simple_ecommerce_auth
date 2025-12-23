@@ -1,8 +1,14 @@
-import { Outlet, createFileRoute } from "@tanstack/react-router";
+import { middleware } from "server/middleware";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { AdminSidebar } from "@/components/layout/AdminSidebar";
+import LoaderSpinner from "@/components/global/LoaderSpinner";
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
+  beforeLoad: async () => {
+    await middleware({ role: "admin" });
+  },
+  pendingComponent: () => <LoaderSpinner />,
 });
 
 function AdminLayout() {

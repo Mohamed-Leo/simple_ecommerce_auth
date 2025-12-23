@@ -1,4 +1,4 @@
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "server/auth-client";
 import { toast } from "sonner";
 
 export const handleSignWithProvider = async (

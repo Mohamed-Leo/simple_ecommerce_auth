@@ -1,4 +1,4 @@
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "server/auth-client";
 import { router } from "@/router";
 import { toast } from "sonner";
 

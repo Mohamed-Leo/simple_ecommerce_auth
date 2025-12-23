@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "server/auth-client";
 import type { signUpSchemaType } from "@/lib/validations/signUpSchema";
 
 export async function onSignUpSubmit(data: signUpSchemaType) {

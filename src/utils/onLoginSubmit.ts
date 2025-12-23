@@ -1,6 +1,8 @@
 import { toast } from "sonner";
 import { type LoginSchemaType } from "../lib/validations/loginSchema";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "server/auth-client";
+import { router } from "@/router";
+import type { UserWithRole } from "@/types/authTypes";
 
 export async function onLoginSubmit(data: LoginSchemaType) {
   const { email, password } = data;
@@ -10,11 +12,14 @@ export async function onLoginSubmit(data: LoginSchemaType) {
       {
         email,
         password,
-        callbackURL: "/profile",
       },
       {
-        onSuccess: () => {
+        onSuccess: (ctx) => {
           toast.success("Login successful");
+          const user = ctx.data.user as typeof ctx.data.user & UserWithRole;
+
+          if (user.role === "admin") router.navigate({ to: "/admin" });
+          else router.navigate({ to: "/profile" });
         },
         onError: (ctx) => {
           toast.error(ctx.error.message, {

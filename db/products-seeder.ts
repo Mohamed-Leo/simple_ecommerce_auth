@@ -1,33 +1,34 @@
 import "dotenv/config";
 import { db } from "./drizzel";
-import { user, product } from "./schema";
+import { product, category as categoryTable } from "./schema";
 import { eq } from "drizzle-orm";
 
-async function seed() {
-  console.log("🌱 Seeding database...");
+async function productSeeder() {
+  console.log("🌱 Seeding categories and products...");
 
-  // 1. Create Admin User
-  const adminEmail = "admin@example.com";
-  const existingAdmin = await db
-    .select()
-    .from(user)
-    .where(eq(user.email, adminEmail))
-    .limit(1);
+  // 1. Create Initial Categories
+  const categories = [
+    { name: "Electronics", description: "Gadgets and devices" },
+    {
+      name: "Furniture",
+      description: "Home and office furniture",
+    },
+    {
+      name: "Peripherals",
+      description: "Computer accessories and add-ons",
+    },
+  ];
 
-  if (existingAdmin.length === 0) {
-    console.log("Creating admin user...");
-    await db.insert(user).values({
-      id: "admin-1", // Better Auth usually generates IDs, but we can manually set one for the first admin
-      name: "Admin User",
-      email: adminEmail,
-      emailVerified: true,
-      role: "admin",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    console.log("✅ Admin user created: admin@example.com");
-  } else {
-    console.log("ℹ️ Admin user already exists.");
+  for (const cat of categories) {
+    const existingCat = await db
+      .select()
+      .from(categoryTable)
+      .where(eq(categoryTable.name, cat.name))
+      .limit(1);
+    if (existingCat.length === 0) {
+      console.log(`Creating category: ${cat.name}`);
+      await db.insert(categoryTable).values(cat);
+    }
   }
 
   // 2. Create Initial Products
@@ -41,7 +42,7 @@ async function seed() {
         description: "High-quality sound with noise-canceling technology.",
         price: "199.99",
         stock: 50,
-        category: "Electronics",
+        categoryId: "Electronics",
       },
       {
         id: "prod-2",
@@ -49,7 +50,7 @@ async function seed() {
         description: "Comfortable chair designed for long working hours.",
         price: "249.50",
         stock: 20,
-        category: "Furniture",
+        categoryId: "Furniture",
       },
       {
         id: "prod-3",
@@ -57,7 +58,7 @@ async function seed() {
         description: "RGB backlit keyboard with tactile switches.",
         price: "129.00",
         stock: 35,
-        category: "Peripherals",
+        categoryId: "Peripherals",
       },
     ]);
     console.log("✅ Dummy products created.");
@@ -68,7 +69,7 @@ async function seed() {
   console.log("✨ Seeding completed!");
 }
 
-seed().catch((err) => {
+productSeeder().catch((err) => {
   console.error("❌ Seeding failed:");
   console.error(err);
   process.exit(1);

@@ -9,16 +9,6 @@ export function AdminSidebar() {
     { to: "/", label: "Back to Site", icon: Home },
   ];
 
-  // const handleSignOut = async () => {
-  //   await authClient.signOut({
-  //     fetchOptions: {
-  //       onSuccess: () => {
-  //         navigate({ to: "/login" });
-  //       },
-  //     },
-  //   });
-  // };
-
   return (
     <aside className="w-64 bg-slate-900 text-white flex flex-col h-screen sticky top-0">
       <div className="p-6">

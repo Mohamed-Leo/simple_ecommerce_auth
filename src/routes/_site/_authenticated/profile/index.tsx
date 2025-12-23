@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "server/auth-client";
 import {
   Card,
   CardContent,

@@ -65,13 +65,13 @@ function AdminComponent() {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <button className="w-full text-left px-4 py-2 rounded-md hover:bg-slate-100 transition-colors text-sm font-medium">
+            <button className="w-full text-left px-4 py-2 rounded-md hover:bg-accent transition-colors text-sm font-medium">
               📦 Add New Product
             </button>
-            <button className="w-full text-left px-4 py-2 rounded-md hover:bg-slate-100 transition-colors text-sm font-medium">
+            <button className="w-full text-left px-4 py-2 rounded-md hover:bg-accent transition-colors text-sm font-medium">
               👥 Manage Users
             </button>
-            <button className="w-full text-left px-4 py-2 rounded-md hover:bg-slate-100 transition-colors text-sm font-medium">
+            <button className="w-full text-left px-4 py-2 rounded-md hover:bg-accent transition-colors text-sm font-medium">
               ⚙️ System Settings
             </button>
           </CardContent>

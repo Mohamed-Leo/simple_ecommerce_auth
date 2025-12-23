@@ -29,5 +29,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "server/auth-client.ts",
+    "server/auth.ts",
+    "server/middleware.ts"
+  ]
 }

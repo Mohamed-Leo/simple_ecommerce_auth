@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { UserAvatarMenu } from "../features/UserAvatarMenu";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "server/auth-client";
 import { buttonVariants } from "../ui/button";
 
 const NavBar = () => {

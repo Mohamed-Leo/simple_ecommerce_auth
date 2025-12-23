@@ -1,14 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { authClient } from "@/lib/auth-client";
 
-const UserAvatar = () => {
-  const { data } = authClient.useSession();
-
+const UserAvatar = ({
+  userData,
+}: {
+  userData: { image: string; name: string };
+}) => {
   return (
     <Avatar className="cursor-pointer">
-      <AvatarImage src={data?.user?.image || ""} alt="User avatar" />
+      <AvatarImage src={userData?.image || ""} alt="User avatar" />
       <AvatarFallback>
-        {data?.user?.name?.charAt(0).toUpperCase() || "?"}
+        {userData?.name?.charAt(0).toUpperCase() || "?"}
       </AvatarFallback>
     </Avatar>
   );
