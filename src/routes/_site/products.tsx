@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { fetchGetProducts } from "@/utils/fetchGetProducts";
 import RouteError from "@/components/global/RouteError";
+import { AddToCartButton } from "@/components/features/AddToCartButton";
 
 export const Route = createFileRoute("/_site/products")({
   loader: async () => {
@@ -85,15 +85,7 @@ function RouteComponent() {
                 </div>
               </CardContent>
               <CardFooter className="p-4 pt-0">
-                <Button
-                  className="w-full cursor-pointer group"
-                  variant="default"
-                >
-                  Add to Cart
-                  <span className="ml-2 group-hover:translate-x-1 transition-transform">
-                    →
-                  </span>
-                </Button>
+                <AddToCartButton productId={product.id} />
               </CardFooter>
             </Card>
           ))}

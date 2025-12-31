@@ -17,6 +17,10 @@ async function productSeeder() {
       name: "Peripherals",
       description: "Computer accessories and add-ons",
     },
+    {
+      name: "Computer Accessories",
+      description: "Computer accessories and add-ons",
+    },
   ];
 
   for (const cat of categories) {
@@ -37,7 +41,7 @@ async function productSeeder() {
     console.log("Creating dummy products...");
     await db.insert(product).values([
       {
-        id: "prod-1",
+        id: crypto.randomUUID(),
         name: "Premium Wireless Headphones",
         description: "High-quality sound with noise-canceling technology.",
         price: "199.99",
@@ -45,7 +49,7 @@ async function productSeeder() {
         categoryId: "Electronics",
       },
       {
-        id: "prod-2",
+        id: crypto.randomUUID(),
         name: "Ergonomic Office Chair",
         description: "Comfortable chair designed for long working hours.",
         price: "249.50",
@@ -53,12 +57,21 @@ async function productSeeder() {
         categoryId: "Furniture",
       },
       {
-        id: "prod-3",
+        id: crypto.randomUUID(),
         name: "Mechanical Keyboard",
         description: "RGB backlit keyboard with tactile switches.",
-        price: "129.00",
+        price: "27.38",
         stock: 35,
-        categoryId: "Peripherals",
+        categoryId: "Computer Accessories",
+      },
+      {
+        id: crypto.randomUUID(),
+        name: "Redragon K662L-K1RS",
+        description:
+          "Redragon K662L-K1RS Wireless Portable 60% Mechanical Gaming Keyboard – Red Switches",
+        price: "33.69",
+        stock: 10,
+        categoryId: "Computer Accessories",
       },
     ]);
     console.log("✅ Dummy products created.");

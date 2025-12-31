@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { auth } from "../src/lib/auth";
+import { auth } from "../server/auth";
 import { db } from "./drizzel";
 import { user as userTable } from "./schema";
 import { eq } from "drizzle-orm";

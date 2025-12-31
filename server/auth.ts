@@ -7,7 +7,8 @@ export const auth = betterAuth({
     provider: "pg",
   }),
   session: {
-    expiresIn: 30 * 24 * 60 * 60, // 30 days in seconds
+    expiresIn: 60 * 60, // 1 hour in seconds
+    // expiresIn: 30 * 24 * 60 * 60, // 30 days in seconds
     updateAge: 24 * 60 * 60, // 1 day in seconds (session will be updated if user is active)
     cookieCache: {
       enabled: true,

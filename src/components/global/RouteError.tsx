@@ -11,10 +11,10 @@ export default function RouteError({ error }: { error: Error }) {
         <AlertCircle size={32} />
       </div>
       <div className="space-y-2">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+        <h2 className="text-2xl font-bold tracking-tight text-destructive">
           Something went wrong
         </h2>
-        <p className="max-w-100 text-gray-500 dark:text-gray-400">
+        <p className="max-w-100 text-muted-foreground">
           {error.message || "We encountered an error while loading this page."}
         </p>
       </div>

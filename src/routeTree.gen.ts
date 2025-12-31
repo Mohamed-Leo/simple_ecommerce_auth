@@ -16,10 +16,10 @@ import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as AdminProductsRouteImport } from './routes/admin/products'
 import { Route as SiteProductsRouteImport } from './routes/_site/products'
 import { Route as SiteAuthenticatedRouteRouteImport } from './routes/_site/_authenticated/route'
+import { Route as SiteAuthenticatedProfileRouteImport } from './routes/_site/_authenticated/profile'
+import { Route as SiteAuthenticatedCartRouteImport } from './routes/_site/_authenticated/cart'
 import { Route as SiteauthSignupRouteImport } from './routes/_site/(auth)/signup'
 import { Route as SiteauthLoginRouteImport } from './routes/_site/(auth)/login'
-import { Route as SiteAuthenticatedProfileIndexRouteImport } from './routes/_site/_authenticated/profile/index'
-import { Route as SiteAuthenticatedDashboardIndexRouteImport } from './routes/_site/_authenticated/dashboard/index'
 
 const AdminRouteRoute = AdminRouteRouteImport.update({
   id: '/admin',
@@ -54,6 +54,17 @@ const SiteAuthenticatedRouteRoute = SiteAuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => SiteRouteRoute,
 } as any)
+const SiteAuthenticatedProfileRoute =
+  SiteAuthenticatedProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => SiteAuthenticatedRouteRoute,
+  } as any)
+const SiteAuthenticatedCartRoute = SiteAuthenticatedCartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => SiteAuthenticatedRouteRoute,
+} as any)
 const SiteauthSignupRoute = SiteauthSignupRouteImport.update({
   id: '/(auth)/signup',
   path: '/signup',
@@ -64,18 +75,6 @@ const SiteauthLoginRoute = SiteauthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => SiteRouteRoute,
 } as any)
-const SiteAuthenticatedProfileIndexRoute =
-  SiteAuthenticatedProfileIndexRouteImport.update({
-    id: '/profile/',
-    path: '/profile/',
-    getParentRoute: () => SiteAuthenticatedRouteRoute,
-  } as any)
-const SiteAuthenticatedDashboardIndexRoute =
-  SiteAuthenticatedDashboardIndexRouteImport.update({
-    id: '/dashboard/',
-    path: '/dashboard/',
-    getParentRoute: () => SiteAuthenticatedRouteRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
@@ -85,8 +84,8 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/login': typeof SiteauthLoginRoute
   '/signup': typeof SiteauthSignupRoute
-  '/dashboard': typeof SiteAuthenticatedDashboardIndexRoute
-  '/profile': typeof SiteAuthenticatedProfileIndexRoute
+  '/cart': typeof SiteAuthenticatedCartRoute
+  '/profile': typeof SiteAuthenticatedProfileRoute
 }
 export interface FileRoutesByTo {
   '/products': typeof SiteProductsRoute
@@ -95,8 +94,8 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/login': typeof SiteauthLoginRoute
   '/signup': typeof SiteauthSignupRoute
-  '/dashboard': typeof SiteAuthenticatedDashboardIndexRoute
-  '/profile': typeof SiteAuthenticatedProfileIndexRoute
+  '/cart': typeof SiteAuthenticatedCartRoute
+  '/profile': typeof SiteAuthenticatedProfileRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -109,8 +108,8 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/_site/(auth)/login': typeof SiteauthLoginRoute
   '/_site/(auth)/signup': typeof SiteauthSignupRoute
-  '/_site/_authenticated/dashboard/': typeof SiteAuthenticatedDashboardIndexRoute
-  '/_site/_authenticated/profile/': typeof SiteAuthenticatedProfileIndexRoute
+  '/_site/_authenticated/cart': typeof SiteAuthenticatedCartRoute
+  '/_site/_authenticated/profile': typeof SiteAuthenticatedProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -122,7 +121,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/login'
     | '/signup'
-    | '/dashboard'
+    | '/cart'
     | '/profile'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,7 +131,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/signup'
-    | '/dashboard'
+    | '/cart'
     | '/profile'
   id:
     | '__root__'
@@ -145,8 +144,8 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/_site/(auth)/login'
     | '/_site/(auth)/signup'
-    | '/_site/_authenticated/dashboard/'
-    | '/_site/_authenticated/profile/'
+    | '/_site/_authenticated/cart'
+    | '/_site/_authenticated/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -205,6 +204,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteAuthenticatedRouteRouteImport
       parentRoute: typeof SiteRouteRoute
     }
+    '/_site/_authenticated/profile': {
+      id: '/_site/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof SiteAuthenticatedProfileRouteImport
+      parentRoute: typeof SiteAuthenticatedRouteRoute
+    }
+    '/_site/_authenticated/cart': {
+      id: '/_site/_authenticated/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof SiteAuthenticatedCartRouteImport
+      parentRoute: typeof SiteAuthenticatedRouteRoute
+    }
     '/_site/(auth)/signup': {
       id: '/_site/(auth)/signup'
       path: '/signup'
@@ -219,32 +232,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteauthLoginRouteImport
       parentRoute: typeof SiteRouteRoute
     }
-    '/_site/_authenticated/profile/': {
-      id: '/_site/_authenticated/profile/'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof SiteAuthenticatedProfileIndexRouteImport
-      parentRoute: typeof SiteAuthenticatedRouteRoute
-    }
-    '/_site/_authenticated/dashboard/': {
-      id: '/_site/_authenticated/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof SiteAuthenticatedDashboardIndexRouteImport
-      parentRoute: typeof SiteAuthenticatedRouteRoute
-    }
   }
 }
 
 interface SiteAuthenticatedRouteRouteChildren {
-  SiteAuthenticatedDashboardIndexRoute: typeof SiteAuthenticatedDashboardIndexRoute
-  SiteAuthenticatedProfileIndexRoute: typeof SiteAuthenticatedProfileIndexRoute
+  SiteAuthenticatedCartRoute: typeof SiteAuthenticatedCartRoute
+  SiteAuthenticatedProfileRoute: typeof SiteAuthenticatedProfileRoute
 }
 
 const SiteAuthenticatedRouteRouteChildren: SiteAuthenticatedRouteRouteChildren =
   {
-    SiteAuthenticatedDashboardIndexRoute: SiteAuthenticatedDashboardIndexRoute,
-    SiteAuthenticatedProfileIndexRoute: SiteAuthenticatedProfileIndexRoute,
+    SiteAuthenticatedCartRoute: SiteAuthenticatedCartRoute,
+    SiteAuthenticatedProfileRoute: SiteAuthenticatedProfileRoute,
   }
 
 const SiteAuthenticatedRouteRouteWithChildren =

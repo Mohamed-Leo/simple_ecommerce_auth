@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { useCategories } from "@/hooks/useCategories";
-import useUpdateProductForm from "@/hooks/useUpdateProductForm";
 import { Controller } from "react-hook-form";
-
-import { handleUpdateProduct } from "@/utils/handleUpdateProduct";
 
 import type { ProductSchemaType } from "@/lib/validations/ProductSchema";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { Product } from "@/types/mainTypes";
 import {
   Dialog,
   DialogClose,
@@ -24,10 +19,13 @@ import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field";
 import { Spinner } from "@/components/ui/spinner";
 import { SelectBox } from "@/components/custom/SelectBox";
-import { Edit } from "lucide-react";
+import { Plus } from "lucide-react";
 import { router } from "@/router";
+import useAddProductForm from "@/hooks/useAddProductForm";
+import { useCategories } from "@/hooks/useCategories";
+import { handleAddProduct } from "@/utils/handleAddProduct";
 
-const UpdateProductForm = ({ product }: { product: Product }) => {
+const AddProductForm = () => {
   const [open, setOpen] = useState(false);
 
   const {
@@ -37,10 +35,10 @@ const UpdateProductForm = ({ product }: { product: Product }) => {
       control,
       formState: { errors, isSubmitting },
     },
-  } = useUpdateProductForm(product);
+  } = useAddProductForm();
 
   const onSubmit = async (formData: ProductSchemaType) => {
-    const success = await handleUpdateProduct(product.id, formData);
+    const success = await handleAddProduct(formData);
     if (success) setOpen(false);
     router.invalidate(); // refresh the page
   };
@@ -50,22 +48,16 @@ const UpdateProductForm = ({ product }: { product: Product }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className="h-8 w-8 cursor-pointer text-slate-600 hover:text-indigo-600 border-slate-200"
-        >
-          <Edit className="h-4 w-4" />
+        <Button variant={"secondary"}>
+          <Plus className="mr-2 h-4 w-4" /> Add Product
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-106.25">
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle className="leading-6">
-              Update the {`(${product.name})`} Product
-            </DialogTitle>
+            <DialogTitle className="leading-6">Add a new Product</DialogTitle>
             <DialogDescription>
-              Update the {`(${product.name})`} product details
+              Add a new product to the store
             </DialogDescription>
           </DialogHeader>
 
@@ -141,10 +133,10 @@ const UpdateProductForm = ({ product }: { product: Product }) => {
             >
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
-                  <Spinner /> Updating...
+                  <Spinner /> Adding...
                 </span>
               ) : (
-                "Update"
+                "Add"
               )}
             </Button>
           </DialogFooter>
@@ -154,4 +146,4 @@ const UpdateProductForm = ({ product }: { product: Product }) => {
   );
 };
 
-export default UpdateProductForm;
+export default AddProductForm;

@@ -8,15 +8,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, Plus, Package } from "lucide-react";
+import { Trash2, Package } from "lucide-react";
 import { fetchGetProducts } from "@/utils/fetchGetProducts";
 import RouteError from "@/components/global/RouteError";
 import LoaderSpinner from "@/components/global/LoaderSpinner";
 import { handleDeleteProduct } from "@/utils/handleDeleteProduct";
 import { AlertDialogBox } from "@/components/custom/AlertDialogBox";
-import { DialogFormBox } from "@/components/custom/DialogFormBox";
-import { handleUpdateProduct } from "@/utils/handleUpdateProduct";
 import UpdateProductForm from "@/components/features/UpdateProductForm";
+import AddProductForm from "@/components/features/AddProductForm";
 
 export const Route = createFileRoute("/admin/products")({
   component: RouteComponent,
@@ -47,9 +46,7 @@ function RouteComponent() {
           <h1 className="text-2xl font-bold text-slate-900">Products</h1>
           <p className="text-slate-500">Manage your product catalog</p>
         </div>
-        <Button variant={"secondary"}>
-          <Plus className="mr-2 h-4 w-4" /> Add Product
-        </Button>
+        <AddProductForm />
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
@@ -66,7 +63,7 @@ function RouteComponent() {
 
           <TableBody>
             {products.length === 0 ? (
-              <TableRow>
+              <TableRow className="hover:bg-gray-100">
                 <TableCell
                   colSpan={6}
                   className="h-32 text-center text-slate-500"
@@ -117,24 +114,10 @@ function RouteComponent() {
 
                   <TableCell>
                     <div className="flex justify-center gap-2">
-                      <DialogFormBox
-                        trigger={
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-8 w-8 text-slate-600 hover:text-indigo-600 border-slate-200"
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                        }
-                        title={`Update Product (${product.name})`}
-                        description={`Update the (${product.name}) product details`}
-                        actionName="Update"
-                        action={() => handleUpdateProduct(product)}
-                      >
-                        <UpdateProductForm product={product} />
-                      </DialogFormBox>
+                      {/* update product action */}
+                      <UpdateProductForm product={product} />
 
+                      {/* delete product action */}
                       <AlertDialogBox
                         actionName="Delete"
                         action={() =>
@@ -146,7 +129,7 @@ function RouteComponent() {
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-8 w-8 text-slate-600 hover:text-red-600 border-slate-200 hover:border-red-100 hover:bg-red-50"
+                            className="h-8 w-8 cursor-pointer text-slate-600 hover:text-red-600 border-slate-200 hover:border-red-100 hover:bg-red-50"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>

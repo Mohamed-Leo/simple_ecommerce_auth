@@ -82,21 +82,16 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)]
 );
 
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, {
+    fields: [account.userId],
+    references: [user.id],
+  }),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
   user: one(user, {
     fields: [session.userId],
-    references: [user.id],
-  }),
-}));
-
-export const accountRelations = relations(account, ({ one }) => ({
-  user: one(user, {
-    fields: [account.userId],
     references: [user.id],
   }),
 }));
@@ -132,13 +127,54 @@ export const category = pgTable("category", {
     .notNull(),
 });
 
-export const productRelations = relations(product, ({ one }) => ({
+export const categoryRelations = relations(category, ({ many }) => ({
+  products: many(product),
+}));
+
+export const cartItem = pgTable(
+  "cart_item",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    productId: text("product_id")
+      .notNull()
+      .references(() => product.id, { onDelete: "cascade" }),
+    quantity: integer("quantity").notNull().default(1),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("cartItem_userId_idx").on(table.userId),
+    index("cartItem_productId_idx").on(table.productId),
+  ]
+);
+
+export const cartItemRelations = relations(cartItem, ({ one }) => ({
+  user: one(user, {
+    fields: [cartItem.userId],
+    references: [user.id],
+  }),
+  product: one(product, {
+    fields: [cartItem.productId],
+    references: [product.id],
+  }),
+}));
+
+export const userCartRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
+  cartItems: many(cartItem),
+}));
+
+export const productCartRelations = relations(product, ({ one, many }) => ({
   category: one(category, {
     fields: [product.categoryId],
     references: [category.name],
   }),
-}));
-
-export const categoryRelations = relations(category, ({ many }) => ({
-  products: many(product),
+  cartItems: many(cartItem),
 }));
