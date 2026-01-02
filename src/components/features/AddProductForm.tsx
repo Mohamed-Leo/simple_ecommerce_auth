@@ -22,7 +22,7 @@ import { SelectBox } from "@/components/custom/SelectBox";
 import { Plus } from "lucide-react";
 import { router } from "@/router";
 import useAddProductForm from "@/hooks/useAddProductForm";
-import { useCategories } from "@/hooks/useCategories";
+import { useCategories } from "@/hooks/useCategoriesQuery";
 import { handleAddProduct } from "@/utils/handleAddProduct";
 
 const AddProductForm = () => {

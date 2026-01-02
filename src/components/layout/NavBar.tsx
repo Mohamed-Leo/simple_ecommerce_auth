@@ -2,15 +2,10 @@ import { Link } from "@tanstack/react-router";
 import { UserAvatarMenu } from "../features/UserAvatarMenu";
 import { authClient } from "server/auth-client";
 import { buttonVariants } from "../ui/button";
+import { navLinks } from "@/constants/layoutConstants";
 
 const NavBar = () => {
   const { data } = authClient.useSession();
-
-  const navLinks = [
-    { label: "Home", href: "/" },
-    { label: "Products", href: "/products" },
-    { label: "Cart", href: "/cart" },
-  ];
 
   return (
     <nav className="flex justify-between items-center gap-10">

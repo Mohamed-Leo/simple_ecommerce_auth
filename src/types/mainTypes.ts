@@ -33,6 +33,12 @@ interface SelectBoxProps {
   id?: string;
 }
 
+interface ProductSearchProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+
 interface CartItem {
   id: string;
   productId: string;
@@ -45,10 +51,17 @@ interface CartItem {
   };
 }
 
+type CategoryType = {
+  name: string;
+  description: string;
+};
+
 export type {
   Product,
   AlertDialogBoxType,
   DialogFormBoxType,
   SelectBoxProps,
+  ProductSearchProps,
   CartItem,
+  CategoryType,
 };

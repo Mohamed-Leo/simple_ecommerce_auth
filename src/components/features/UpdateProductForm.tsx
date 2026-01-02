@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCategories } from "@/hooks/useCategories";
+import { useCategories } from "@/hooks/useCategoriesQuery";
 import useUpdateProductForm from "@/hooks/useUpdateProductForm";
 import { Controller } from "react-hook-form";
 

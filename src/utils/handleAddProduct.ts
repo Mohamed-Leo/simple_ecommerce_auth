@@ -2,13 +2,11 @@ import { type ProductSchemaType } from "../lib/validations/ProductSchema";
 import { toast } from "sonner";
 
 import axios from "axios";
+import { fetchPostProduct } from "./fetchPostProduct";
 
 export const handleAddProduct = async (formData: ProductSchemaType) => {
   try {
-    const response = await axios.post(
-      `http://localhost:3000/api/products`,
-      formData
-    );
+    const response = await fetchPostProduct(formData);
 
     if (response.status === 200) {
       toast.success(response.data.message || "Product added successfully");
